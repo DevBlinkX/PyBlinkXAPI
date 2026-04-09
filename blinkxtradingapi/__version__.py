@@ -1,0 +1,8 @@
+__title__ = "blinkxtradingapi"
+__description__ = "The official Python client for the BlinkX Smart API trading platform"
+__url__ = "https://smartapi.blinkx.in"
+__download_url__ = "https://github.com/AsthaJMFinancial/pyblinkxtradingapi"
+__version__ = "1.0.0"
+__author__ = "BlinkX / JM Financial (India)"
+__author_email__ = "support@blinkx.in"
+__license__ = "MIT"
