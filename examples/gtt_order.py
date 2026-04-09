@@ -1,9 +1,9 @@
 import logging
-from blinkxconnect import BlinkXConnect
+from blinkxtradingapi import BlinkXTradingAPI
 
 logging.basicConfig(level=logging.DEBUG)
 
-blinkx = BlinkXConnect(api_key="your_api_key")
+blinkx = BlinkXTradingAPI(api_key="your_api_key")
 
 # Redirect the user to the login url obtained
 # from blinkx.login_url(), and receive the request_token

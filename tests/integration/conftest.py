@@ -4,7 +4,7 @@
 import os
 import sys
 import pytest
-from blinkxconnect import BlinkXConnect
+from blinkxtradingapi import BlinkXTradingAPI
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../helpers'))
 
@@ -33,6 +33,6 @@ def pytest_generate_tests(metafunc):
 
 
 @pytest.fixture()
-def blinkxconnect(api_key, access_token, root_url):
+def blinkxtradingapi(api_key, access_token, root_url):
     """Init BlinkX connect object."""
-    return BlinkXConnect(api_key=api_key, access_token=access_token, root=root_url or None)
+    return BlinkXTradingAPI(api_key=api_key, access_token=access_token, root=root_url or None)

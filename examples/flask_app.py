@@ -10,7 +10,7 @@
 # To run this you need BlinkX Connect python client and Flask webserver
 #
 #   pip install Flask
-#   pip install blinkxconnect
+#   pip install blinkxtradingapi
 #
 #   python examples/flask_app.py
 ###############################################################################
@@ -21,7 +21,7 @@ from datetime import date, datetime
 from decimal import Decimal
 
 from flask import Flask, request, jsonify, session
-from blinkxconnect import BlinkXConnect
+from blinkxtradingapi import BlinkXTradingAPI
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -70,7 +70,7 @@ login_template = """
 def get_blinkx_client():
     """Returns a BlinkX client object
     """
-    blinkx = BlinkXConnect(api_key=blinkx_api_key)
+    blinkx = BlinkXTradingAPI(api_key=blinkx_api_key)
     if "access_token" in session:
         blinkx.set_access_token(session["access_token"])
     return blinkx

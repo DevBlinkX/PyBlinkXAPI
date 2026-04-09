@@ -9,7 +9,7 @@
 ###############################################################################
 
 import logging
-from blinkxconnect import BlinkXTicker
+from blinkxtradingapi import BlinkXTicker
 
 logging.basicConfig(level=logging.DEBUG)
 

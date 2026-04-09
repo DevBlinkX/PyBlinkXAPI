@@ -6,11 +6,11 @@ import utils
 import time
 import datetime
 import warnings
-import blinkxconnect.exceptions as ex
+import blinkxtradingapi.exceptions as ex
 
 
 def test_request_pool():
-    from blinkxconnect import BlinkXConnect
+    from blinkxtradingapi import BlinkXTradingAPI
     pool = {
         "pool_connections": 10,
         "pool_maxsize": 10,
@@ -18,112 +18,112 @@ def test_request_pool():
         "pool_block": False
     }
 
-    blinkx = BlinkXConnect(api_key="random", access_token="random", pool=pool)
+    blinkx = BlinkXTradingAPI(api_key="random", access_token="random", pool=pool)
 
     with pytest.raises(ex.TokenException):
         blinkx.orders()
 
 
-def test_set_access_token(blinkxconnect):
+def test_set_access_token(blinkxtradingapi):
     """Check for token exception when invalid token is set."""
-    blinkxconnect.set_access_token("invalid_token")
+    blinkxtradingapi.set_access_token("invalid_token")
     with pytest.raises(ex.TokenException):
-        blinkxconnect.positions()
+        blinkxtradingapi.positions()
 
 
-def test_set_session_expiry_hook(blinkxconnect):
+def test_set_session_expiry_hook(blinkxtradingapi):
     """Test token exception callback"""
     with pytest.raises(TypeError):
-        blinkxconnect.set_session_expiry_hook(123)
+        blinkxtradingapi.set_session_expiry_hook(123)
 
     callback = Mock()
-    blinkxconnect.set_session_expiry_hook(callback)
-    blinkxconnect.set_access_token("some_invalid_token")
+    blinkxtradingapi.set_session_expiry_hook(callback)
+    blinkxtradingapi.set_access_token("some_invalid_token")
     with pytest.raises(ex.TokenException):
-        blinkxconnect.orders()
+        blinkxtradingapi.orders()
     callback.assert_called_with()
 
 
-def test_positions(blinkxconnect):
+def test_positions(blinkxtradingapi):
     """Test positions."""
-    positions = blinkxconnect.positions()
+    positions = blinkxtradingapi.positions()
     mock_resp = utils.get_json_response("portfolio.positions")["data"]
     utils.assert_responses(positions, mock_resp)
 
 
-def test_holdings(blinkxconnect):
+def test_holdings(blinkxtradingapi):
     """Test holdings."""
-    holdings = blinkxconnect.holdings()
+    holdings = blinkxtradingapi.holdings()
     mock_resp = utils.get_json_response("portfolio.holdings")["data"]
     utils.assert_responses(holdings, mock_resp)
 
 
-def test_auction_instruments(blinkxconnect):
+def test_auction_instruments(blinkxtradingapi):
     """ Test get_auction_instruments """
-    auction_inst = blinkxconnect.get_auction_instruments()
+    auction_inst = blinkxtradingapi.get_auction_instruments()
     mock_resp = utils.get_json_response("portfolio.holdings.auction")["data"]
     utils.assert_responses(auction_inst, mock_resp)
 
 
-def test_margins(blinkxconnect):
+def test_margins(blinkxtradingapi):
     """Test margins."""
-    margins = blinkxconnect.margins()
+    margins = blinkxtradingapi.margins()
     mock_resp = utils.get_json_response("user.margins")["data"]
     utils.assert_responses(margins, mock_resp)
 
 
-def test_orders(blinkxconnect):
+def test_orders(blinkxtradingapi):
     """Test orders get."""
-    orders = blinkxconnect.orders()
+    orders = blinkxtradingapi.orders()
     assert type(orders) == list
 
 
-def test_order_history(blinkxconnect):
+def test_order_history(blinkxtradingapi):
     """Test individual order get."""
-    orders = blinkxconnect.orders()
+    orders = blinkxtradingapi.orders()
 
     if len(orders) == 0:
         warnings.warn(UserWarning("Order info: Couldn't perform individual order test since orderbook is empty."))
         return
 
-    order = blinkxconnect.order_history(order_id=orders[0]["order_id"])
+    order = blinkxtradingapi.order_history(order_id=orders[0]["order_id"])
 
     mock_resp = utils.get_json_response("order.info")["data"]
     utils.assert_responses(order, mock_resp)
 
 
-def test_trades(blinkxconnect):
+def test_trades(blinkxtradingapi):
     """Test trades."""
-    trades = blinkxconnect.trades()
+    trades = blinkxtradingapi.trades()
     mock_resp = utils.get_json_response("trades")["data"]
     utils.assert_responses(trades, mock_resp)
 
 
-def test_order_trades(blinkxconnect):
+def test_order_trades(blinkxtradingapi):
     """Test individual order get."""
-    trades = blinkxconnect.trades()
+    trades = blinkxtradingapi.trades()
 
     if len(trades) == 0:
         warnings.warn(UserWarning("Trades: Couldn't perform individual order test since trades is empty."))
         return
 
-    order_trades = blinkxconnect.order_trades(order_id=trades[0]["order_id"])
+    order_trades = blinkxtradingapi.order_trades(order_id=trades[0]["order_id"])
 
     mock_resp = utils.get_json_response("order.trades")["data"]
     utils.assert_responses(order_trades, mock_resp)
 
 
-def test_all_instruments(blinkxconnect):
+def test_all_instruments(blinkxtradingapi):
     """Test instruments fetch."""
-    instruments = blinkxconnect.instruments()
-    mock_resp = blinkxconnect._parse_instruments(utils.get_response("market.instruments"))
+    instruments = blinkxtradingapi.instruments()
+    mock_resp = blinkxtradingapi._parse_instruments(utils.get_response("market.instruments"))
     utils.assert_responses(instruments, mock_resp)
 
 
-def test_exchange_instruments(blinkxconnect):
+def test_exchange_instruments(blinkxtradingapi):
     """Test instruments fetch."""
-    instruments = blinkxconnect.instruments(exchange=blinkxconnect.EXCHANGE_NSE)
-    mock_resp = blinkxconnect._parse_instruments(utils.get_response("market.instruments"))
+    instruments = blinkxtradingapi.instruments(exchange=blinkxtradingapi.EXCHANGE_NSE)
+    mock_resp = blinkxtradingapi._parse_instruments(utils.get_response("market.instruments"))
     utils.assert_responses(instruments, mock_resp)
 
 
@@ -151,7 +151,7 @@ def test_exchange_instruments(blinkxconnect):
     "30minute",
     "60minute",
 ])
-def test_historical_data_intervals(max_interval, candle_interval, blinkxconnect):
+def test_historical_data_intervals(max_interval, candle_interval, blinkxtradingapi):
     """Test historical data for each intervals"""
     instrument_token = 256265
     to_date = datetime.datetime.now()
@@ -159,55 +159,55 @@ def test_historical_data_intervals(max_interval, candle_interval, blinkxconnect)
 
     from_date = (to_date - datetime.timedelta(days=diff))
 
-    data = blinkxconnect.historical_data(instrument_token, from_date, to_date, candle_interval)
-    mock_resp = blinkxconnect._format_historical(utils.get_json_response("market.historical")["data"])
+    data = blinkxtradingapi.historical_data(instrument_token, from_date, to_date, candle_interval)
+    mock_resp = blinkxtradingapi._format_historical(utils.get_json_response("market.historical")["data"])
     utils.assert_responses(data, mock_resp)
 
     from_date = (to_date - datetime.timedelta(days=(max_interval + 1)))
     with pytest.raises(ex.InputException):
-        blinkxconnect.historical_data(instrument_token, from_date, to_date, candle_interval)
+        blinkxtradingapi.historical_data(instrument_token, from_date, to_date, candle_interval)
 
 
-def test_quote(blinkxconnect):
+def test_quote(blinkxtradingapi):
     """Test quote."""
     instruments = ["NSE:INFY"]
 
     time.sleep(1.1)
-    quote = blinkxconnect.quote(instruments)
+    quote = blinkxtradingapi.quote(instruments)
     mock_resp = utils.get_json_response("market.quote")["data"]
     utils.assert_responses(quote, mock_resp)
 
     time.sleep(1.1)
-    quote = blinkxconnect.quote(*instruments)
+    quote = blinkxtradingapi.quote(*instruments)
     mock_resp = utils.get_json_response("market.quote")["data"]
     utils.assert_responses(quote, mock_resp)
 
 
-def test_quote_ohlc(blinkxconnect):
+def test_quote_ohlc(blinkxtradingapi):
     """Test ohlc."""
     instruments = ["NSE:INFY"]
 
     time.sleep(1.1)
-    ohlc = blinkxconnect.ohlc(instruments)
+    ohlc = blinkxtradingapi.ohlc(instruments)
     mock_resp = utils.get_json_response("market.quote.ohlc")["data"]
     utils.assert_responses(ohlc, mock_resp)
 
     time.sleep(1.1)
-    ohlc = blinkxconnect.ohlc(*instruments)
+    ohlc = blinkxtradingapi.ohlc(*instruments)
     mock_resp = utils.get_json_response("market.quote.ohlc")["data"]
     utils.assert_responses(ohlc, mock_resp)
 
 
-def test_quote_ltp(blinkxconnect):
+def test_quote_ltp(blinkxtradingapi):
     """Test ltp."""
     instruments = ["NSE:INFY"]
 
     time.sleep(1.1)
-    ltp = blinkxconnect.ltp(instruments)
+    ltp = blinkxtradingapi.ltp(instruments)
     mock_resp = utils.get_json_response("market.quote.ltp")["data"]
     utils.assert_responses(ltp, mock_resp)
 
     time.sleep(1.1)
-    ltp = blinkxconnect.ltp(*instruments)
+    ltp = blinkxtradingapi.ltp(*instruments)
     mock_resp = utils.get_json_response("market.quote.ltp")["data"]
     utils.assert_responses(ltp, mock_resp)
