@@ -18,12 +18,12 @@ import requests
 import warnings
 
 from .__version__ import __version__, __title__
-import blinkxconnect.exceptions as ex
+import pyblinkxapi.exceptions as ex
 
 log = logging.getLogger(__name__)
 
 
-class BlinkXConnect(object):
+class PyBlinkXAPI(object):
     """
     The BlinkX Smart API wrapper class.
 
@@ -33,7 +33,7 @@ class BlinkXConnect(object):
     # Default root API endpoint. It's possible to
     # override this by passing the `root` parameter during initialisation.
     _default_root_uri = "https://developeruat.blinkx.in/SmartApi"
-    _default_login_uri = "https://mobuadeh.blinkx.in/connect/login"
+    _default_login_uri = "https://mobuadeh.blinkx.in/login/connect/login"
     _default_timeout = 7  # In seconds
 
     # BlinkX connect header version

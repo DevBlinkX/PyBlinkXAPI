@@ -2,14 +2,14 @@
 
 The official Python client library for the [BlinkX Smart API](https://smartapi.blinkx.in) trading platform by JM Financial.
 
-`pyblinkxconnect` provides a clean, Pythonic interface to interact with the BlinkX trading APIs. It covers REST-based order placement, portfolio and account management, market data retrieval, GTT (Good Till Triggered) orders, option chains, and real-time WebSocket streaming via the `BlinkXTicker` component.
+`pypyblinkxapi` provides a clean, Pythonic interface to interact with the BlinkX trading APIs. It covers REST-based order placement, portfolio and account management, market data retrieval, GTT (Good Till Triggered) orders, option chains, and real-time WebSocket streaming via the `BlinkXTicker` component.
 
 ## Installation
 
 Install via pip:
 
 ```
-pip install pyblinkxconnect
+pip install pypyblinkxapi
 ```
 
 Or install from source:
@@ -21,10 +21,10 @@ python setup.py install
 ## Usage
 
 ```python
-from blinkxconnect import BlinkXConnect
+from pyblinkxapi import PyBlinkXAPI
 
 # Initialize the client
-blinkx = BlinkXConnect(api_key="your_api_key")
+blinkx = PyBlinkXAPI(api_key="your_api_key")
 
 # Generate a login URL for the user
 print(blinkx.login_url())
@@ -69,7 +69,7 @@ print(options)
 ## WebSocket Streaming
 
 ```python
-from blinkxconnect import BlinkXTicker
+from pyblinkxapi import BlinkXTicker
 
 kws = BlinkXTicker("your_api_key", "public_token", "user_id")
 
@@ -206,12 +206,12 @@ pytest tests/unit/
 
 See the `examples/` directory for complete working samples including:
 
-- `simple.py` — Basic API usage (orders, positions, option chain)
-- `flask_app.py` — Flask web app integration with OAuth login flow
-- `gtt_order.py` — GTT order placement
-- `order_margins.py` — Order margin calculations
-- `ticker.py` — Real-time WebSocket streaming
-- `threaded_ticker.py` — Background ticker with threading
+- `simple.py` â€” Basic API usage (orders, positions, option chain)
+- `flask_app.py` â€” Flask web app integration with OAuth login flow
+- `gtt_order.py` â€” GTT order placement
+- `order_margins.py` â€” Order margin calculations
+- `ticker.py` â€” Real-time WebSocket streaming
+- `threaded_ticker.py` â€” Background ticker with threading
 
 ## License
 

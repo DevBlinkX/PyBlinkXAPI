@@ -209,7 +209,7 @@ class BlinkXTicker(object):
     ---------------
         #!python
         import logging
-        from blinkxconnect import BlinkXTicker
+        from pyblinkxapi import BlinkXTicker
 
         logging.basicConfig(level=logging.DEBUG)
 

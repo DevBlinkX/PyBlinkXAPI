@@ -1,9 +1,9 @@
 import logging
-from blinkxconnect import BlinkXConnect
+from pyblinkxapi import PyBlinkXAPI
 
 logging.basicConfig(level=logging.DEBUG)
 
-blinkx = BlinkXConnect(api_key="JJjqBs1qlKwPS8cdIo8wABQdbRQw97ok")
+blinkx = PyBlinkXAPI(api_key="JJjqBs1qlKwPS8cdIo8wABQdbRQw97ok")
 
 # Redirect the user to the login url obtained
 # from blinkx.login_url(), and receive the request_token
@@ -28,14 +28,14 @@ try:
         # print("Margins:   ",file=f)
         # print(blinkx.margins(),file=f)
 
-        # print(blinkx.place_order(variety=blinkx.VARIETY_REGULAR,
-        # exchange=blinkx.EXCHANGE_BSE,
-        # tradingsymbol="RELIANCE",
-        # transaction_type=blinkx.TRANSACTION_TYPE_BUY,
-        # quantity=1,
-        # product=blinkx.PRODUCT_CNC,
-        # price=3000,
-        # order_type=blinkx.ORDER_TYPE_MARKET,validity=blinkx.VALIDITY_DAY),file=f)
+        print(blinkx.place_order(variety=blinkx.VARIETY_REGULAR,
+        exchange=blinkx.EXCHANGE_BSE,
+        tradingsymbol="RELIANCE",
+        transaction_type=blinkx.TRANSACTION_TYPE_BUY,
+        quantity=1,
+        product=blinkx.PRODUCT_CNC,
+        price=3000,
+        order_type=blinkx.ORDER_TYPE_MARKET,validity=blinkx.VALIDITY_DAY),file=f)
 
         # print("Modify Order",file=f)
         # print(blinkx.modify_order(variety=blinkx.VARIETY_REGULAR,order_id="251103000000062",order_type=blinkx.ORDER_TYPE_LIMIT,quantity=20,validity=blinkx.VALIDITY_DAY), file=f)

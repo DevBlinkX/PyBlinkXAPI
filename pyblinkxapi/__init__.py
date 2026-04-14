@@ -6,7 +6,7 @@ BlinkX / JM Financial (c) 2026
 
 License
 -------
-BlinkXConnect Python library is licensed under the MIT License
+PyBlinkXAPI Python library is licensed under the MIT License
 
 The library
 -----------
@@ -26,11 +26,11 @@ Getting started
 ---------------
     #!python
     import logging
-    from blinkxconnect import BlinkXConnect
+    from pyblinkxapi import PyBlinkXAPI
 
     logging.basicConfig(level=logging.DEBUG)
 
-    blinkx = BlinkXConnect(api_key="your_api_key")
+    blinkx = PyBlinkXAPI(api_key="your_api_key")
 
     # Redirect the user to the login url obtained
     # from blinkx.login_url(), and receive the request_token
@@ -101,8 +101,8 @@ it raises aptly named **[exceptions](exceptions.m.html)** that you can catch.
 
 from __future__ import unicode_literals, absolute_import
 
-from blinkxconnect import exceptions
-from blinkxconnect.connect import BlinkXConnect
-from blinkxconnect.ticker import BlinkXTicker
+from pyblinkxapi import exceptions
+from pyblinkxapi.connect import PyBlinkXAPI
+from pyblinkxapi.ticker import BlinkXTicker
 
-__all__ = ["BlinkXConnect", "BlinkXTicker", "exceptions"]
+__all__ = ["PyBlinkXAPI", "BlinkXTicker", "exceptions"]
