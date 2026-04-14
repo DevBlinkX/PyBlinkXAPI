@@ -8,7 +8,7 @@ from setuptools import setup
 current_dir = os.path.abspath(os.path.dirname(__file__))
 
 about = {}
-with open(os.path.join(current_dir, "blinkxtradingapi", "__version__.py"), "r", "utf-8") as f:
+with open(os.path.join(current_dir, "pyblinkxapi", "__version__.py"), "r", "utf-8") as f:
     exec(f.read(), about)
 
 with io.open('README.md', 'rt', encoding='utf8') as f:
@@ -25,7 +25,7 @@ setup(
     url=about["__url__"],
     download_url=about["__download_url__"],
     license=about["__license__"],
-    packages=["blinkxtradingapi"],
+    packages=["pyblinkxapi"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",

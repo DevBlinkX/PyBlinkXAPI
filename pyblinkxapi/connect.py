@@ -18,12 +18,12 @@ import requests
 import warnings
 
 from .__version__ import __version__, __title__
-import blinkxtradingapi.exceptions as ex
+import pyblinkxapi.exceptions as ex
 
 log = logging.getLogger(__name__)
 
 
-class BlinkXTradingAPI(object):
+class PyBlinkXAPI(object):
     """
     The BlinkX Smart API wrapper class.
 

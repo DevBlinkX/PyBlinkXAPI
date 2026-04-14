@@ -2,14 +2,14 @@
 
 The official Python client library for the [BlinkX Smart API](https://smartapi.blinkx.in) trading platform by JM Financial.
 
-`pyblinkxtradingapi` provides a clean, Pythonic interface to interact with the BlinkX trading APIs. It covers REST-based order placement, portfolio and account management, market data retrieval, GTT (Good Till Triggered) orders, option chains, and real-time WebSocket streaming via the `BlinkXTicker` component.
+`pypyblinkxapi` provides a clean, Pythonic interface to interact with the BlinkX trading APIs. It covers REST-based order placement, portfolio and account management, market data retrieval, GTT (Good Till Triggered) orders, option chains, and real-time WebSocket streaming via the `BlinkXTicker` component.
 
 ## Installation
 
 Install via pip:
 
 ```
-pip install pyblinkxtradingapi
+pip install pypyblinkxapi
 ```
 
 Or install from source:
@@ -21,10 +21,10 @@ python setup.py install
 ## Usage
 
 ```python
-from blinkxtradingapi import BlinkXTradingAPI
+from pyblinkxapi import PyBlinkXAPI
 
 # Initialize the client
-blinkx = BlinkXTradingAPI(api_key="your_api_key")
+blinkx = PyBlinkXAPI(api_key="your_api_key")
 
 # Generate a login URL for the user
 print(blinkx.login_url())
@@ -69,7 +69,7 @@ print(options)
 ## WebSocket Streaming
 
 ```python
-from blinkxtradingapi import BlinkXTicker
+from pyblinkxapi import BlinkXTicker
 
 kws = BlinkXTicker("your_api_key", "public_token", "user_id")
 

@@ -4,23 +4,23 @@
 import os
 import sys
 import pytest
-from blinkxtradingapi import BlinkXTradingAPI, BlinkXTicker
+from pyblinkxapi import PyBlinkXAPI, BlinkXTicker
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../helpers'))
 
 
 @pytest.fixture()
-def blinkxtradingapi():
+def pyblinkxapi():
     """Init BlinkX connect object."""
-    blinkx = BlinkXTradingAPI(api_key='<API-KEY>', access_token='<ACCESS-TOKEN>')
+    blinkx = PyBlinkXAPI(api_key='<API-KEY>', access_token='<ACCESS-TOKEN>')
     blinkx.root = 'http://blinkx_api_test'
     return blinkx
 
 
 @pytest.fixture()
-def blinkxtradingapi_with_pooling():
+def pyblinkxapi_with_pooling():
     """Init BlinkX connect object with pooling."""
-    blinkx = BlinkXTradingAPI(
+    blinkx = PyBlinkXAPI(
         api_key="<API-KEY>",
         access_token="<ACCESS-TOKEN>",
         pool={
@@ -44,7 +44,7 @@ def blinkxticker():
 @pytest.fixture()
 def protocol():
     from autobahn.test import FakeTransport
-    from blinkxtradingapi.ticker import BlinkXTickerClientProtocol,\
+    from pyblinkxapi.ticker import BlinkXTickerClientProtocol,\
         BlinkXTickerClientFactory
 
     t = FakeTransport()

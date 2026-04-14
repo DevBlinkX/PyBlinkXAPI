@@ -2,34 +2,34 @@
 
 import pytest
 import responses
-import blinkxtradingapi.exceptions as ex
+import pyblinkxapi.exceptions as ex
 
 
 @responses.activate
-def test_wrong_json_response(blinkxtradingapi):
+def test_wrong_json_response(pyblinkxapi):
     responses.add(
         responses.GET,
-        "%s%s" % (blinkxtradingapi.root, blinkxtradingapi._routes["portfolio.positions"]),
+        "%s%s" % (pyblinkxapi.root, pyblinkxapi._routes["portfolio.positions"]),
         body="{a:b}",
         content_type="application/json"
     )
     with pytest.raises(ex.DataException) as exc:
-        blinkxtradingapi.positions()
+        pyblinkxapi.positions()
         assert exc.message == "Couldn't parse the JSON response "\
             "received from the server: {a:b}"
 
 
 @responses.activate
-def test_wrong_content_type(blinkxtradingapi):
+def test_wrong_content_type(pyblinkxapi):
     rdf_data = "<rdf:Description rdf:about=''><rdfs:label>blinkx</rdfs:label></rdf:Description"
     responses.add(
         responses.GET,
-        "%s%s" % (blinkxtradingapi.root, blinkxtradingapi._routes["portfolio.positions"]),
+        "%s%s" % (pyblinkxapi.root, pyblinkxapi._routes["portfolio.positions"]),
         body=rdf_data,
         content_type="application/rdf+xml"
     )
     with pytest.raises(ex.DataException) as exc:
-        blinkxtradingapi.positions()
+        pyblinkxapi.positions()
         assert exc.message == "Unknown Content-Type ({content_type}) with response: ({content})".format(
             content_type='application/rdf+xml',
             content=rdf_data
@@ -44,13 +44,13 @@ def test_wrong_content_type(blinkxtradingapi):
     ('CustomException', 'this is an exception i just created')
 ])
 @responses.activate
-def test_native_exceptions(error_type, message, blinkxtradingapi):
+def test_native_exceptions(error_type, message, pyblinkxapi):
     responses.add(
         responses.GET,
-        "%s%s" % (blinkxtradingapi.root, blinkxtradingapi._routes["portfolio.positions"]),
+        "%s%s" % (pyblinkxapi.root, pyblinkxapi._routes["portfolio.positions"]),
         body='{"error_type": "%s", "message": "%s"}' % (error_type, message),
         content_type="application/json"
     )
     with pytest.raises(getattr(ex, error_type, ex.GeneralException)) as exc:
-        blinkxtradingapi.positions()
+        pyblinkxapi.positions()
         assert exc.message == message
