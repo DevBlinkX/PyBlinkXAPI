@@ -1,6 +1,6 @@
 # The BlinkX Connect API Python client - v1
 
-The official Python client library for the [BlinkX Smart API](https://smartapi.blinkx.in) trading platform by JM Financial.
+The official Python client library for the [BlinkX API](https://api.blinkx.in) trading platform by JM Financial.
 
 `pypyblinkxapi` provides a clean, Pythonic interface to interact with the BlinkX trading APIs. It covers REST-based order placement, portfolio and account management, market data retrieval, GTT (Good Till Triggered) orders, option chains, and real-time WebSocket streaming via the `BlinkXTicker` component.
 
@@ -219,5 +219,5 @@ MIT License. See `LICENSE` for details.
 
 ## Links
 
-- **BlinkX Smart API Documentation**: [https://smartapi.blinkx.in/docs](https://smartapi.blinkx.in/docs)
+- **BlinkX API Documentation**: [https://developer.blinkx.in/docs](https://developer.blinkx.in/docs)
 - **BlinkX Website**: [https://blinkx.in](https://blinkx.in)
