@@ -1,0 +1,8 @@
+__title__ = "pyjmproapi"
+__description__ = "The official Python client for the JMPRO Trading API platform"
+__url__ = "https://api.jmpro.in"
+__download_url__ = "https://github.com/AsthaJMFinancial/pyjmproapi"
+__version__ = "1.0.0"
+__author__ = "JMPRO / JM Financial (India)"
+__author_email__ = "support@jmpro.in"
+__license__ = "MIT"
